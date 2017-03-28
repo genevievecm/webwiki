@@ -1,3 +1,2 @@
-##Webwiki
-Build using WordPress, React and Redux.
-
+## Webwiki
+Experimental app using WordPress, React and Redux.
