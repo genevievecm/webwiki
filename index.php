@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Webwiki</title>
+	<title>WP API</title>
 </head>
 <body>
-	<div id="app"></div> <!--  This div will be holding the app -->
-	<script src="<?php echo get_template_directory_uri() . '/bundle.js'?>"></script> <!-- This is the main JS file that gets bundled by webpack -->
+	<div id="app"></div>
+	<script src="http://localhost:8080/src/public/bundle.js"></script>
 </body>
 </html>
