@@ -6,5 +6,7 @@
 This uses Hot Module Replacement (HMR) with Webpack on port 8080 but you will also need a PHP server like MAMP that will run WordPress.
 
 ###### Setup
-`npm install
-npm start`
+```
+npm install
+npm start
+```
