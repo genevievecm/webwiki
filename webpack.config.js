@@ -23,10 +23,10 @@ module.exports = {
 		filename: 'bundle.js',
 		// the output bundle
 
-		path: resolve(__dirname, 'src/public'),
+		path: resolve(__dirname, './public'),
 		// the destination for the bundle
 
-		publicPath: 'http://localhost:8080/src/public',
+		publicPath: 'http://localhost:8080/public',
 		// let HMR know where to load the hot update chunks
 	},
 
@@ -40,16 +40,16 @@ module.exports = {
     hot: true,
     // enable HMR on the server
 
-    contentBase: resolve(__dirname, 'src/public'),
+    contentBase: resolve(__dirname, '/public'),
     // match the output path, where to serve content from
 
-    publicPath: 'http://localhost:8080/src/public',
+    publicPath: 'http://localhost:8080/public',
     // where the bundles should be served from
     // match the output `publicPath`
 
     proxy: {
       '/' : 'http://localhost:8888/webwiki',
-      // proxy the request to the above url
+	    // proxy the request to the above url
     },
   },
 
@@ -61,7 +61,7 @@ module.exports = {
           'babel-loader',
         ],
         exclude: /node_modules/
-			}
+			},
 		]
 	},
 
