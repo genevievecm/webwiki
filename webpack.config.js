@@ -41,10 +41,16 @@ module.exports = {
     // enable HMR on the server
 
     contentBase: resolve(__dirname, 'src/public'),
-    // match the output path
+    // match the output path, where to serve content from
 
     publicPath: 'http://localhost:8080/src/public',
+    // where the bundles should be served from
     // match the output `publicPath`
+
+    proxy: {
+      '/' : 'http://localhost:8888/webwiki',
+      // proxy the request to the above url
+    },
   },
 
 	module: {
