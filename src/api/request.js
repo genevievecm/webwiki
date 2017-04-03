@@ -1,15 +1,13 @@
-import WP_API_BASE_URL from './config';
+import { WP_API_BASE_URL } from './config';
 import 'whatwg-fetch';
 
-export function request(endpoint, method = 'GET') {
-	return fetch(WP_API_BASE_URL, {
+const request = (param) => {
+	return fetch(WP_API_BASE_URL+(param ? param : ''), {
 		method: 'get'
-	}).then(function(response) {
+	})
+	.then(function(response) {
 		return response.json();
 	})
-	.then(function(parsedData) {
-	    console.log(parsedData);
-	}).catch(function(err) {
-		console.log(err);
-	});
 }
+
+export default request;
