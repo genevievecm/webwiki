@@ -8,34 +8,51 @@ function webwiki_scripts() {
 add_action( 'wp_enqueue_scripts', 'webwiki_scripts' );
 */
 
-
-/**
- * Adding category field to WP API Posts Response
- */
-function get_category_id_and_title() {
-    register_rest_field( 'post',
-        'categories',
-        array(
-            'get_callback'    => 'get_post_id_and_category',
-            'update_callback' => null,
-            'schema'          => null,
-        )
-    );
-}
-add_action( 'rest_api_init', 'get_category_id_and_title' );
-
 /**
  * Callback function:
- * get category information for each post object
+ * get categories and related posts
  */
-function get_post_id_and_category($object, $field_name, $request){
-    $cats = array();
-    foreach (get_the_category($object->id) as $c) {
-        $obj = array(
-            'id' => $c->cat_ID,
-            'name' => $c->name
+function get_post_id_and_category(){
+
+    $categories = array();
+
+    $cats = get_terms( array(
+        'taxonomy' => 'category',
+        'hide_empty' => true,
+        'orderby' => 'term_id',
+    ) );
+
+    foreach ($cats as $cat) {
+
+        $args = array(
+            'post_type' => 'post',
+            'category' => $cat->term_id,
         );
-        array_push($cats, $obj);
+        
+        $posts_array = get_posts( $args );
+
+        $cat_obj = array(
+            'id' => $cat->term_id,
+            'title' => $cat->name,
+            'slug' => $cat->slug,
+            'post_count' => $cat->count,
+            'posts' => $posts_array,
+        );
+
+        array_push($categories, $cat_obj);
     }
-    return $cats;
+
+    return $categories;
 }
+
+
+/**
+ * Register Custom Endpoint
+ */
+function custom_categories_endpoint(){
+    register_rest_route( 'custom', '/categories', array(
+        'methods' => 'GET',
+        'callback' => 'get_post_id_and_category',
+    ));
+}
+add_action( 'rest_api_init', 'custom_categories_endpoint');
