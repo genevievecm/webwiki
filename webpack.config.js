@@ -41,6 +41,13 @@ module.exports = {
         hot: true,
         // enable HMR on the server
 
+        historyApiFallback: {
+            rewrites: [
+                { from: /^\/webwiki/, to: '' },
+            ]
+        },
+        // configure react router
+
         contentBase: resolve(__dirname, '/public'),
         // match the output path, where to serve content from
 

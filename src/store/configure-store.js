@@ -1,12 +1,14 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from '../reducers';
 import thunk from 'redux-thunk';
+import { browserHistory } from 'react-router';
+import { routerMiddleware } from 'react-router-redux';
 
 function configureStore(initialState) {
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const store = createStore(rootReducer, initialState, composeEnhancers(
-    applyMiddleware(thunk)
+    applyMiddleware(routerMiddleware(browserHistory), thunk)
   ));
 
   _enableHotLoader(store);
