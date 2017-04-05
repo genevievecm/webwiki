@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-import get from '../api/request';
+import request from '../api/request';
 
 const loadCategories = (categories) => {
     // debugger;
@@ -13,7 +13,7 @@ const loadCategories = (categories) => {
 
 const getCategories = () => {
 	return dispatch => {
-		get('categories')
+		request('categories')
 		.then(response => {
             // debugger;
 			dispatch(loadCategories(response));
