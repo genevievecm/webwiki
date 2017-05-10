@@ -1,19 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import configureStore from './store/configure-store';
-import { Provider } from 'react-redux'
-import { Router, browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-import routes from './routes/routes';
+import App from './containers/App/App';
+import rootReducer from './reducers';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import { createLogger } from 'redux-logger';
+import ReduxThunk from 'redux-thunk';
 
-const store = configureStore({});
-const history = syncHistoryWithStore(browserHistory, store);
+const logger = createLogger();
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk, logger));
 
 ReactDOM.render(
 	<Provider store={ store }>
-		<Router history={ history }>
-			{ routes }
-	  	</Router>
+		<App />
 	</Provider>,
 	document.getElementById('app')
 );

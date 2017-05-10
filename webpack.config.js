@@ -55,6 +55,12 @@ module.exports = {
         // where the bundles should be served from
         // match the output `publicPath`
 
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+            "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+        },
+
         proxy: {
             '/': 'http://localhost:8888/webwiki',
             // proxy the request to the above url
