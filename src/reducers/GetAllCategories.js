@@ -4,7 +4,7 @@ const GetAllCategories = (state = [], action) => {
 	switch (action.type){
 
 		case types.ACTION_TYPES.LOAD_CATEGORIES:
-			// debugger;
+			debugger;
 			return action.payload.categories;
 
 		default:
