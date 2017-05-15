@@ -1,0 +1,15 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 100%; /* 16px base font size, use rem for other font sizes */
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+}
+
+/* App inner container */
+#container {
+	width: 100%;
+}

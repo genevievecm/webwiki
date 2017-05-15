@@ -7,5 +7,5 @@ const rootReducer = combineReducers({
 	categories: GetAllCategories,
 });
 
-debugger;
+// debugger;
 export default rootReducer;

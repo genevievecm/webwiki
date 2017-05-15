@@ -41,13 +41,6 @@ module.exports = {
         hot: true,
         // enable HMR on the server
 
-        historyApiFallback: {
-            rewrites: [
-                { from: /^\/webwiki/, to: '' },
-            ]
-        },
-        // configure react router
-
         contentBase: resolve(__dirname, '/public'),
         // match the output path, where to serve content from
 
@@ -60,6 +53,7 @@ module.exports = {
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
             "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
         },
+        // allows Cross-Origin resources (CORS)
 
         proxy: {
             '/': 'http://localhost:8888/webwiki',
@@ -77,11 +71,10 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.scss$/,
+                test: /\.css$/,
                 loaders: [
                     'style-loader',
-                    'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]&sourceMap&-minimize',
-                    'sass-loader',
+                    'css-loader?modules&importLoaders=1&localIdentName=[local]'
                 ]
             },
         ]
