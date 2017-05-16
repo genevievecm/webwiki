@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { pending } from '../../actions/PendingRequest';
-import getSinglePost from '../../actions/GetSinglePost';
+import { pending } from '../../../actions/PendingRequest';
+import getSinglePost from '../../../actions/GetSinglePost';
 
 // get the state from redux store
 const mapStateToProps = (state) => {
@@ -17,13 +17,20 @@ const mapDispatchtoProps = {
     getSinglePost
 };
 
+// set post content innerHTML in DOM
+const createMarkup = (content) => {
+  return {__html: content};
+}
+
 class SinglePost extends Component {
 
-    componentDidMount() {
+    // get Single Post by post ID
+    componentWillMount() {
         this.props.getSinglePost(this.props.match.params.id);
     }
 
     render() {
+        let post = this.props.singlepost;
 
         if(this.props.pending){ 
             return <p>LOADING...</p>
@@ -31,7 +38,8 @@ class SinglePost extends Component {
 
         return (
             <div>
-                <h1>{ this.props.singlepost.title ? this.props.singlepost.title.rendered : null }</h1>
+                <h1>{ post.title ? post.title.rendered : null }</h1>
+                <div dangerouslySetInnerHTML={ createMarkup(post.content ? post.content.rendered : null) } />
                 <Link to='/webwiki'>Back</Link>
             </div>
         );

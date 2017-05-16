@@ -1,6 +1,6 @@
 import * as types from '../actions/constants';
 
-const SinglePost = (state = [], action) => {
+const SinglePost = (state = {}, action) => {
 	switch (action.type){
 
 		case types.SINGLEPOST_ACTIONS.REQUEST_SINGLEPOST_SUCCESS:

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import getCategories from '../../actions/GetCategories';
+import getCategories from '../../../actions/GetCategories';
 import AllPosts from '../AllPosts/AllPosts';
 import styles from './Categories.css';
 
 // get the state from redux store
 const mapStateToProps = (state) => {
-    console.log(state);
     return ({
         categories: state.categories,
         pending: state.pending,
