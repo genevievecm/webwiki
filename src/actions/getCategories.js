@@ -1,25 +1,34 @@
-import * as types from './actionTypes';
+import * as types from './constants';
+import * as urls from '../api/config';
 import { request } from '../api/request';
+import { pending } from './PendingRequest';
 
 const loadCategories = (categories) => {
     return {
-    	type: types.ACTION_TYPES.LOAD_CATEGORIES,
+    	type: types.CATEGORY_ACTIONS.REQUEST_CATEGORIES_SUCCESS,
     	payload: {
             categories,
         }
     }
 }
 
+const categoriesError = () => {
+	return {
+    	type: types.CATEGORY_ACTIONS.REQUEST_CATEGORIES_ERROR,
+    	payload: error
+    }
+}
+
 const getCategories = () => {
 	return (dispatch) => {
-		request('categories')
-		.then(response => {
-			dispatch(loadCategories(response));
-		})
-		.catch(error => {
-			console.log(error);
-			throw error;
-		})
+
+		// loading...
+		dispatch(pending(status = true));
+
+		request(urls.REQUEST_URLS.WP_API_CUSTOM_ENDPOINT, 'categories') // perform api call
+		.then(response => dispatch(loadCategories(response))) // get data
+		.then(() => dispatch(pending(status = false))) // loading complete
+		.catch(error => dispatch(categoriesError(error))) // return any errors
 	}
 }
 

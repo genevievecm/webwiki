@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import getCategories from '../../actions/getCategories';
-import Posts from '../Posts/Posts';
+import getCategories from '../../actions/GetCategories';
+import AllPosts from '../AllPosts/AllPosts';
 import styles from './Categories.css';
 
 // get the state from redux store
 const mapStateToProps = (state) => {
+    console.log(state);
     return ({
         categories: state.categories,
+        pending: state.pending,
     });
 }
 
@@ -25,13 +27,18 @@ class Categories extends Component {
     }
 
     render() {
+
+        if(this.props.pending){ 
+            return <p>LOADING...</p>
+        }
+
         // loop through and output name of each category,
         // pass any children (posts) as props
         let categories = this.props.categories.map(cat => {
             return (
                 <li key={ cat.slug }>
                     <h2>{ cat.title }</h2>
-                    <Posts children={ cat.posts } />
+                    <AllPosts children={ cat.posts } />
                 </li>
             );
         })
