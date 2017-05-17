@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import getCategories from '../../../actions/GetCategories';
-import AllPosts from '../AllPosts/AllPosts';
+import Posts from '../Posts/Posts';
+import Loader from '../../common/Loader/Loader';
 import styles from './Categories.css';
 
 // get the state from redux store
@@ -9,6 +10,7 @@ const mapStateToProps = (state) => {
     return ({
         categories: state.categories,
         pending: state.pending,
+        searchvalue: state.searchvalue.value,
     });
 }
 
@@ -28,18 +30,27 @@ class Categories extends Component {
     render() {
 
         if(this.props.pending){ 
-            return <p>LOADING...</p>
+            return <Loader />;
         }
 
         // loop through and output name of each category,
-        // pass any children (posts) as props
-        let categories = this.props.categories.map(cat => {
-            return (
-                <li key={ cat.slug }>
-                    <h2>{ cat.title }</h2>
-                    <AllPosts children={ cat.posts } />
-                </li>
+        // pass children (posts) as props
+        const categories = this.props.categories.map(cat => {
+
+            // check if any post titles match search input
+            const filteredPosts = cat.posts.filter(post =>
+               post.post_title.toLowerCase().includes(this.props.searchvalue.toLowerCase())
             );
+
+            // if post title matches search input
+            if(filteredPosts.length >= 1){
+                return (
+                    <li key={ cat.slug }>
+                        <h2>{ cat.title } ({ filteredPosts.length })</h2>
+                        <Posts children={ filteredPosts } />
+                    </li>
+                );
+            }
         })
         
         return <ul id={ styles.collection }>{ categories }</ul>;

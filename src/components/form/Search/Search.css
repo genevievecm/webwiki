@@ -1,0 +1,13 @@
+#searchbox {
+	display: flex;
+	flex-grow: 2;
+	margin: 0 10% 30px 10%;
+}
+
+#searchbox input {
+	border-radius: 0.25rem;
+	border: 1px solid #ccc;
+	padding: 10px 15px;
+	font-size: 0.8rem;
+	flex-grow: 4;
+}

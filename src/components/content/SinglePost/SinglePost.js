@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { pending } from '../../../actions/PendingRequest';
 import getSinglePost from '../../../actions/GetSinglePost';
+import Loader from '../../common/Loader/Loader';
+import styles from './SinglePost.css';
 
 // get the state from redux store
 const mapStateToProps = (state) => {
@@ -33,14 +35,14 @@ class SinglePost extends Component {
         let post = this.props.singlepost;
 
         if(this.props.pending){ 
-            return <p>LOADING...</p>
+            return <Loader />;
         }
 
         return (
-            <div>
+            <div className={ styles.post }>
+                <Link to='/webwiki'>Go Back</Link>
                 <h1>{ post.title ? post.title.rendered : null }</h1>
                 <div dangerouslySetInnerHTML={ createMarkup(post.content ? post.content.rendered : null) } />
-                <Link to='/webwiki'>Back</Link>
             </div>
         );
     }

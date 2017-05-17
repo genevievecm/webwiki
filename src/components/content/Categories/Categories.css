@@ -1,14 +1,3 @@
-#header {
-	border-bottom: 2px solid #98C83E;
-	margin-top: 30px;
-}
-
-#header h1 {
-	margin: 0;
-	padding: 30px 10%;
-	font-size: 1.5rem;
-}
-
 /* Collection of categories and posts */
 #collection {
 	margin: 0 10%;

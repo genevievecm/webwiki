@@ -5,9 +5,12 @@
     
     "react",
     // Transpile React components to JavaScript
+    "stage-2",
   ],
   "plugins": [
-    "react-hot-loader/babel"
+    "react-hot-loader/babel",
     // Enables React code to work with HMR
+    ["transform-object-rest-spread", { "useBuiltIns": true }]
+    // Transform rest properties for object destructuring assignment and spread properties for object literals
   ]
 }
