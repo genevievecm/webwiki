@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import getCategories from '../../../actions/GetCategories';
+import getFilteredPosts from '../../../actions/GetFilteredPosts';
 import Posts from '../Posts/Posts';
 import Loader from '../../common/Loader/Loader';
 import styles from './Categories.css';
@@ -9,6 +10,7 @@ import styles from './Categories.css';
 const mapStateToProps = (state) => {
     return ({
         categories: state.categories,
+        filteredposts: state.filteredposts,
         pending: state.pending,
         searchvalue: state.searchvalue.value,
     });
@@ -16,7 +18,13 @@ const mapStateToProps = (state) => {
 
 // execute operation to update store
 const mapDispatchtoProps = {
-    getCategories
+    getCategories,
+    getFilteredPosts
+};
+
+// flatten array with recursion
+const flatten = (array) => {
+    return array.reduce( (a,b) => a.concat(Array.isArray(b) ? flatten(b) : b), [] )
 };
 
 class Categories extends Component {
@@ -25,6 +33,23 @@ class Categories extends Component {
     // because we require adding new nodes to the DOM
     componentDidMount() {
     	this.props.getCategories();
+    }
+
+    shouldComponentUpdate(nextProps){
+
+        if(this.props.searchvalue !== nextProps.searchvalue){
+
+            const posts = flatten(this.props.categories.map(cat => cat.posts));
+            let filteredPosts = posts.filter(post =>
+               post.post_title.toLowerCase().includes(nextProps.searchvalue.toLowerCase()));
+            
+            nextProps.searchvalue ? filteredPosts : filteredPosts = ['no results'];
+            
+            this.props.getFilteredPosts(filteredPosts);
+
+        }
+
+        return true;
     }
 
     render() {
@@ -52,6 +77,10 @@ class Categories extends Component {
                 );
             }
         })
+
+        if(this.props.filteredposts.length < 1){
+            return <p>No search results</p>;
+        }
         
         return <ul id={ styles.collection }>{ categories }</ul>;
 
@@ -59,3 +88,11 @@ class Categories extends Component {
 }
 
 export default connect(mapStateToProps, mapDispatchtoProps)(Categories);
+
+
+
+
+
+
+
+

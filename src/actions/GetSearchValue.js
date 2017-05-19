@@ -5,9 +5,9 @@ const getSearchValue = (value) => {
 		dispatch({
 			type: types.SEARCH_ACTIONS.REQUEST_SEARCH_VALUE_SUCCESS,
 	    	payload: {
-	    		value
+	    		value,
 	    	}
-		})
+		});
 	}
 }
 

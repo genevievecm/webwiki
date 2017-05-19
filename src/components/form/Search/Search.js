@@ -6,16 +6,18 @@ import getSearchValue from '../../../actions/GetSearchValue';
 // get the state from redux store
 const mapStateToProps = (state) => {
     return {
-    	searchvalue: state.searchvalue.value
+    	searchvalue: state.searchvalue.value,
+        categories: state.categories,
+        filteredposts: state.filteredposts
   	}
 }
 
 // execute operation to update store
 const mapDispatchtoProps = (dispatch) => {
     return {
-    	onSearchChange: (event) => dispatch(getSearchValue(event.target.value))
+    	onSearchChange: (event) => dispatch(getSearchValue(event.target.value)),
   	}
-};
+}
 
 class Search extends Component {
 

@@ -20,6 +20,7 @@ const categoriesError = () => {
 }
 
 const getCategories = () => {
+	debugger;
 	return (dispatch) => {
 
 		// loading...
