@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import Pending from './Pending';
-import AllCategories from './AllCategories';
+import AllCategoriesAndPosts from './AllCategoriesAndPosts';
 import FilteredPosts from './FilteredPosts';
 import SinglePost from './SinglePost';
 import SearchValue from './SearchValue';
@@ -9,7 +9,7 @@ import SearchValue from './SearchValue';
 const rootReducer = combineReducers({
 	routing: routerReducer,
 	pending: Pending,
-	categories: AllCategories,
+	wp_content: AllCategoriesAndPosts,
 	filteredposts: FilteredPosts,
 	singlepost: SinglePost,
 	searchvalue: SearchValue,

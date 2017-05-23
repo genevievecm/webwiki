@@ -1,14 +1,14 @@
 import * as types from '../actions/constants';
 
 const initialState = {
-	value: ''
+	text: ''
 }
 
 export const SearchValue = (state = initialState, action) => {
 	switch (action.type){
 
 		case types.SEARCH_ACTIONS.REQUEST_SEARCH_VALUE_SUCCESS:
-			return Object.assign({}, state, { value: action.payload.value });
+			return Object.assign({}, state, { text: action.payload.text });
 
 		default:
 			return state;

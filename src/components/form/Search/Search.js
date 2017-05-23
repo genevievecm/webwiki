@@ -6,7 +6,7 @@ import getSearchValue from '../../../actions/GetSearchValue';
 // get the state from redux store
 const mapStateToProps = (state) => {
     return {
-    	searchvalue: state.searchvalue.value,
+    	searchvalue: state.searchvalue.text,
         categories: state.categories,
         filteredposts: state.filteredposts
   	}

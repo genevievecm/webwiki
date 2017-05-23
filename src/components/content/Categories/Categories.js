@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import getCategories from '../../../actions/GetCategories';
+import { flatten } from '../../../actions/FlattenArray';
+import getCategoriesAndPosts from '../../../actions/GetCategoriesAndPosts';
 import getFilteredPosts from '../../../actions/GetFilteredPosts';
 import Posts from '../Posts/Posts';
 import Loader from '../../common/Loader/Loader';
@@ -9,42 +10,40 @@ import styles from './Categories.css';
 // get the state from redux store
 const mapStateToProps = (state) => {
     return ({
-        categories: state.categories,
+        wp_content: state.wp_content,
+        categories: state.wp_content.categories,
+        posts: state.wp_content.posts,
         filteredposts: state.filteredposts,
         pending: state.pending,
-        searchvalue: state.searchvalue.value,
+        searchvalue: state.searchvalue.text,
     });
 }
 
 // execute operation to update store
 const mapDispatchtoProps = {
-    getCategories,
+    getCategoriesAndPosts,
     getFilteredPosts
 };
 
-// flatten array with recursion
-const flatten = (array) => {
-    return array.reduce( (a,b) => a.concat(Array.isArray(b) ? flatten(b) : b), [] )
-};
+const filter = (array, expression) => {
+    return array.filter(post => 
+        post.post_title.toLowerCase().includes(expression.toLowerCase()));
+}
 
 class Categories extends Component {
 
     // get categories when component is mounted in DOM
     // because we require adding new nodes to the DOM
     componentDidMount() {
-    	this.props.getCategories();
+    	this.props.getCategoriesAndPosts();
     }
 
     shouldComponentUpdate(nextProps){
 
         if(this.props.searchvalue !== nextProps.searchvalue){
 
-            const posts = flatten(this.props.categories.map(cat => cat.posts));
-            let filteredPosts = posts.filter(post =>
-               post.post_title.toLowerCase().includes(nextProps.searchvalue.toLowerCase()));
-            
-            nextProps.searchvalue ? filteredPosts : filteredPosts = ['no results'];
-            
+            const filteredPosts = filter(this.props.posts, nextProps.searchvalue)
+                        
             this.props.getFilteredPosts(filteredPosts);
 
         }
@@ -62,12 +61,8 @@ class Categories extends Component {
         // pass children (posts) as props
         const categories = this.props.categories.map(cat => {
 
-            // check if any post titles match search input
-            const filteredPosts = cat.posts.filter(post =>
-               post.post_title.toLowerCase().includes(this.props.searchvalue.toLowerCase())
-            );
-
-            // if post title matches search input
+            const filteredPosts = filter(cat.posts, this.props.searchvalue);
+            
             if(filteredPosts.length >= 1){
                 return (
                     <li key={ cat.slug }>
@@ -78,9 +73,9 @@ class Categories extends Component {
             }
         })
 
-        if(this.props.filteredposts.length < 1){
-            return <p>No search results</p>;
-        }
+        // if(this.props.filteredposts.length < 1){
+        //     return <p>No search results</p>;
+        // }
         
         return <ul id={ styles.collection }>{ categories }</ul>;
 
