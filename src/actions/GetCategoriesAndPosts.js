@@ -2,8 +2,7 @@ import * as types from './constants';
 import * as urls from '../api/config';
 import { request } from '../api/request';
 import { pending } from './PendingRequest';
-import { flatten } from '../actions/FlattenArray';
-import getFilteredPosts from '../actions/GetFilteredPosts';
+import { flatten } from '../utils/_flatten-array';
 
 const loadCategoriesAndPosts = (categories) => {
 
@@ -18,11 +17,13 @@ const loadCategoriesAndPosts = (categories) => {
     }
 }
 
-const categoriesAndPostsError = () => {
+const categoriesAndPostsError = (error) => {
 	return {
-    	type: types.WP_CONTENT_ACTIONS.REQUEST_WP_CONTENT_ERROR,
-    	payload: error
-    }
+		type: types.WP_CONTENT_ACTIONS.REQUEST_WP_CONTENT_ERROR,
+		payload: {
+			error
+		}
+	}
 }
 
 const getCategoriesAndPosts = () => {

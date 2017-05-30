@@ -1,30 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import styles from './Search.css';
 import getSearchValue from '../../../actions/GetSearchValue';
 
 // get the state from redux store
 const mapStateToProps = (state) => {
+
     return {
     	searchvalue: state.searchvalue.text,
-        categories: state.categories,
-        filteredposts: state.filteredposts
+        posts: state.wp_content.posts,
   	}
 }
 
 // execute operation to update store
 const mapDispatchtoProps = (dispatch) => {
-    return {
-    	onSearchChange: (event) => dispatch(getSearchValue(event.target.value)),
-  	}
+    return bindActionCreators({ getSearchValue }, dispatch);
 }
 
 class Search extends Component {
 
     render() {
+
+        const { getSearchValue } = this.props;
+        
         return (
             <div id={ styles.searchbox }>
-                <input type='text' onChange={ this.props.onSearchChange } placeholder='Search' />
+                <input 
+                    type='text' 
+                    onChange={ (e) => getSearchValue(e.target.value, this.props.posts) } 
+                    placeholder='Search' />
             </div>
         );
     }
