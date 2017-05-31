@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { flatten } from '../../../utils/_flattenArray';
-import { filter } from '../../../utils/_filterArray';
 import getCategories from '../../../actions/GetCategories';
 import Posts from '../Posts/Posts';
 import Loader from '../../common/Loader/Loader';
@@ -12,9 +10,7 @@ const mapStateToProps = (state) => {
     return ({
         pending: state.pending,
         categories: state.categories,
-        searchvalue: state.searchvalue.text,
-        searchfilter: state.searchvalue.filter,
-        searchresults: state.searchvalue.results,
+        search: state.searchvalue, // text, filter, results
     });
 }
 
@@ -34,8 +30,8 @@ class Categories extends Component {
 
         if (this.props.pending) return <Loader />; // loading icon...
 
-        const data = this.props.searchvalue.length > 0 ? 
-            this.props.searchresults : 
+        const data = this.props.search.text.length > 0 ? 
+            this.props.search.results : 
             this.props.categories
 
         const categories = data.map(cat => {
@@ -50,8 +46,8 @@ class Categories extends Component {
         return (
 
             <ul id={ styles.collection }>
-                { this.props.searchvalue.length >= 1 && this.props.searchresults.length < 1 ? 
-                    <h1>No { this.props.searchfilter } found.</h1> : categories }
+                { this.props.search.text.length >= 1 && this.props.search.results.length < 1 ? 
+                    <h1>No { this.props.search.filter } found.</h1> : categories }
             </ul>
         );
     }
