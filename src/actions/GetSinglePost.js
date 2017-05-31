@@ -23,11 +23,11 @@ const getSinglePost = (id) => {
 
 	return (dispatch) => {
 
-		// loading
+		// loading...
 		dispatch(pending(status = true));
 
 		request(urls.REQUEST_URLS.WP_API_BASE_URL, 'posts/'+id)
-		.then(response => dispatch(loadSinglePost(response))) // get data
+		.then(response => dispatch(loadSinglePost(response))) // get api data
 		.then(() => dispatch(pending(status = false))) // loading completed
 		.catch(error => dispatch(singlePostError(error))) // get any errors
 	}

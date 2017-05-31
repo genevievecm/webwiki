@@ -12,7 +12,7 @@ add_action( 'wp_enqueue_scripts', 'webwiki_scripts' );
  * Callback function:
  * get categories and related posts
  */
-function get_post_id_and_category(){
+function get_category_and_related_posts(){
 
     $categories = array();
 
@@ -55,7 +55,7 @@ function get_post_id_and_category(){
 function custom_categories_endpoint(){
     register_rest_route( 'custom', '/categories', array(
         'methods' => 'GET',
-        'callback' => 'get_post_id_and_category',
+        'callback' => 'get_category_and_related_posts',
     ));
 }
 add_action( 'rest_api_init', 'custom_categories_endpoint');

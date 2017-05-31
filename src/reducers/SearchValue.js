@@ -1,27 +1,47 @@
 import * as types from '../actions/constants';
+import { filter } from '../utils/_filterArray';
 
 const initialState = {
 	text: '',
-	posts: [],
+	filter: 'posts',
+	results: [],
 }
 
 export const SearchValue = (state = initialState, action) => {
 	switch (action.type){
 
 		case types.SEARCH_ACTIONS.REQUEST_SEARCH_VALUE_SUCCESS:
+
+			let results = [];
 			
-			// filtered posts array
-			let filtered = [];
+			// if searching posts
+			if (action.payload.filter === 'posts'){
 
-			// if there is no text in search box, empty filtered posts array
-			action.payload.text.length < 1 ?
-				filtered = [] :
-				filtered = action.payload.posts.filter(post => post.post_title.toLowerCase().includes(action.payload.text.toLowerCase()));
+				action.payload.categories.map(cat => {
 
-			return Object.assign({}, state, { 
-				text: action.payload.text, 
-				posts: filtered, 
-			});
+					// create new category object with filtered posts
+					let obj = Object.assign({}, cat, { 
+						posts: filter(cat.posts, action.payload.text) 
+					});
+
+					// if category has matching posts, add to results array
+					if (obj.posts.length >= 1) results.push(obj);
+
+				});
+			} else { // if searching categories
+				results = filter(action.payload.categories, action.payload.text)
+			}
+
+			// if search bare is empty
+			if (action.payload.text.length < 1) results = [];
+
+			return Object.assign({}, state, 
+				{
+					text: action.payload.text, 
+					filter: action.payload.filter,
+					results: results, 
+				}
+			);
 
 		default:
 			return state;

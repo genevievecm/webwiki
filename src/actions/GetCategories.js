@@ -2,9 +2,9 @@ import * as types from './constants';
 import * as urls from '../api/config';
 import { request } from '../api/request';
 import { pending } from './PendingRequest';
-import { flatten } from '../utils/_flatten-array';
+import { flatten } from '../utils/_flattenArray';
 
-const loadCategoriesAndPosts = (categories) => {
+const loadCategories = (categories) => {
 
 	const posts = flatten(categories.map(cat => cat.posts));
 
@@ -12,12 +12,11 @@ const loadCategoriesAndPosts = (categories) => {
     	type: types.WP_CONTENT_ACTIONS.REQUEST_WP_CONTENT_SUCCESS,
     	payload: {
             categories,
-            posts
         }
     }
 }
 
-const categoriesAndPostsError = (error) => {
+const categoriesError = (error) => {
 	return {
 		type: types.WP_CONTENT_ACTIONS.REQUEST_WP_CONTENT_ERROR,
 		payload: {
@@ -26,7 +25,7 @@ const categoriesAndPostsError = (error) => {
 	}
 }
 
-const getCategoriesAndPosts = () => {
+const getCategories = () => {
 
 	return (dispatch) => {
 
@@ -34,10 +33,10 @@ const getCategoriesAndPosts = () => {
 		dispatch(pending(status = true));
 
 		request(urls.REQUEST_URLS.WP_API_CUSTOM_ENDPOINT, 'categories') // perform api call
-		.then(response => dispatch(loadCategoriesAndPosts(response))) // get data from api
+		.then(response => dispatch(loadCategories(response))) // get data from api
 		.then(() => dispatch(pending(status = false))) // loading complete
-		.catch(error => dispatch(categoriesAndPostsError(error))) // return any errors
+		.catch(error => dispatch(categoriesError(error))) // return any errors
 	}
 }
 
-export default getCategoriesAndPosts;
+export default getCategories;

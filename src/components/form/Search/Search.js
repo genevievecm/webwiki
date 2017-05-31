@@ -9,7 +9,8 @@ const mapStateToProps = (state) => {
 
     return {
     	searchvalue: state.searchvalue.text,
-        posts: state.wp_content.posts,
+        searchfilter: state.searchvalue.filter,
+        categories: state.categories,
   	}
 }
 
@@ -26,9 +27,28 @@ class Search extends Component {
         
         return (
             <div id={ styles.searchbox }>
+                <label>
+                posts
+                <input 
+                    type="radio" 
+                    value="posts" 
+                    checked={ this.props.searchfilter === 'posts' } 
+                    onChange={ (e) => getSearchValue(this.props.searchvalue, e.target.value, this.props.categories) } />
+                </label>
+
+                <label>
+                categories
+                <input 
+                    type="radio" 
+                    value="categories"
+                    checked={ this.props.searchfilter === 'categories' } 
+                    onChange={ (e) => getSearchValue(this.props.searchvalue, e.target.value, this.props.categories) } />
+                </label>
+
                 <input 
                     type='text' 
-                    onChange={ (e) => getSearchValue(e.target.value, this.props.posts) } 
+                    onChange={ (e) => 
+                        getSearchValue(e.target.value, this.props.searchfilter, this.props.categories) } 
                     placeholder='Search' />
             </div>
         );

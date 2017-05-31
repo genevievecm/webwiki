@@ -1,10 +1,10 @@
 import * as types from '../actions/constants';
 
-const AllCategoriesAndPosts = (state = [], action) => {
+const AllCategories = (state = [], action) => {
 	switch (action.type){
 
 		case types.WP_CONTENT_ACTIONS.REQUEST_WP_CONTENT_SUCCESS:
-			return action.payload;
+			return action.payload.categories;
 
 		case types.WP_CONTENT_ACTIONS.REQUEST_WP_CONTENT_ERROR:
 			return action.payload.error;
@@ -15,4 +15,4 @@ const AllCategoriesAndPosts = (state = [], action) => {
 }
 
 
-export default AllCategoriesAndPosts;
+export default AllCategories;
