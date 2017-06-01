@@ -3,9 +3,20 @@
 	margin: 30px 10%;
 }
 
+#searchbox .searchinput {
+	display: flex;
+    position: relative;
+}
+
+#searchbox .input {
+	border: 1px solid #ddd;
+	padding: 12px 20px;
+	font-size: 0.8rem;
+	flex-grow: 4;
+}
+
 #searchbox .tabs {
 	display: flex;
-	flex-direction: row;
 	justify-content: flex-end;
 	margin: 0;
 }
@@ -36,19 +47,6 @@
 	border: 1px solid #98C83E;
 }
 
-#searchbox .searchinput {
-	display: flex;
-    flex: 1;
-    position: relative;
-}
-
-#searchbox .input {
-	border: 1px solid #ddd;
-	padding: 12px 20px;
-	font-size: 0.8rem;
-	flex-grow: 4;
-}
-
 .clear {
 	border: none;
 	color: #757581;
@@ -59,4 +57,8 @@
 	right: 5px;
 	top: 10%;
 	bottom: 10%;
+}
+
+.clear:focus {
+    outline: none;
 }

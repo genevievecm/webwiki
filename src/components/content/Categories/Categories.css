@@ -17,3 +17,7 @@
 #collection > li h2 {
 	font-size: 1.25rem;
 }
+
+#nothingfound {
+	padding-top: 2rem;
+}
