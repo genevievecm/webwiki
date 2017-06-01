@@ -1,12 +1,12 @@
 #header {
 	flex-wrap: wrap;
-	margin-top: 30px;
+	margin-top: 20px;
 	border-bottom: 2px solid #98C83E;
 }
 
 #header h1 {
 	margin: 0;
-	padding: 30px 10%;
+	padding: 0 10%;
 	font-size: 1.5rem;
 	flex-grow: 2;
 }
@@ -14,6 +14,6 @@
 @media (min-width: 768px) { 
 	#header {
 		display: flex;
-		align-items: baseline;
+		align-items: center;
 	}
 }

@@ -1,13 +1,62 @@
 #searchbox {
-	display: flex;
 	flex-grow: 2;
-	margin: 0 10% 30px 10%;
+	margin: 30px 10%;
 }
 
-#searchbox input {
-	border-radius: 0.25rem;
-	border: 1px solid #ccc;
-	padding: 10px 15px;
+#searchbox .tabs {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	margin: 0;
+}
+
+#searchbox .tabs li > div {
+	margin-left: 0.25rem;
+	margin-top: 0.25rem;
+	display: flex;
+}
+
+#searchbox .tabs li label {
+	padding: 8px 22px;
+	flex-grow: 1;
+	font-size: 0.8rem;
+	text-align: center;
+	color: #757581;
+}
+
+.tabs li input[type="radio"]{
+	display:none;
+}
+
+.tabs li > div > input[type="radio"] ~ label:not(:checked) {
+	border: 1px solid #ddd;
+}
+
+.tabs li > div > input[type="radio"]:checked ~ label {
+	border: 1px solid #98C83E;
+}
+
+#searchbox .searchinput {
+	display: flex;
+    flex: 1;
+    position: relative;
+}
+
+#searchbox .input {
+	border: 1px solid #ddd;
+	padding: 12px 20px;
 	font-size: 0.8rem;
 	flex-grow: 4;
+}
+
+.clear {
+	border: none;
+	color: #757581;
+	padding: 0 15px;
+	background: none;
+	margin: 0;
+	position: absolute;
+	right: 5px;
+	top: 10%;
+	bottom: 10%;
 }

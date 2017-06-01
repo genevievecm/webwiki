@@ -28,15 +28,17 @@ export const SearchValue = (state = initialState, action) => {
 					if (obj.posts.length >= 1) results.push(obj);
 
 				});
-			} else { // if searching categories
+			}
+
+			// if searching categories
+			if (action.payload.filter === 'categories') {
 				results = filter(action.payload.categories, action.payload.text)
 			}
 
 			// if search bare is empty
 			if (action.payload.text.length < 1) results = [];
 
-			return Object.assign({}, state, 
-				{
+			return Object.assign({}, state, {
 					text: action.payload.text, 
 					filter: action.payload.filter,
 					results: results, 

@@ -3,20 +3,20 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styles from './Search.css';
 import getSearchValue from '../../../actions/GetSearchValue';
+import RadioButton from '../RadioButton/RadioButton';
 
 // get the state from redux store
 const mapStateToProps = (state) => {
 
     return {
-    	searchvalue: state.searchvalue.text,
-        searchfilter: state.searchvalue.filter,
+    	search: state.searchvalue, // text, filter, results
         categories: state.categories,
   	}
 }
 
 // execute operation to update store
-const mapDispatchtoProps = (dispatch) => {
-    return bindActionCreators({ getSearchValue }, dispatch);
+const mapDispatchtoProps = {
+    getSearchValue,
 }
 
 class Search extends Component {
@@ -27,29 +27,32 @@ class Search extends Component {
         
         return (
             <div id={ styles.searchbox }>
-                <label>
-                posts
-                <input 
-                    type="radio" 
-                    value="posts" 
-                    checked={ this.props.searchfilter === 'posts' } 
-                    onChange={ (e) => getSearchValue(this.props.searchvalue, e.target.value, this.props.categories) } />
-                </label>
 
-                <label>
-                categories
-                <input 
-                    type="radio" 
-                    value="categories"
-                    checked={ this.props.searchfilter === 'categories' } 
-                    onChange={ (e) => getSearchValue(this.props.searchvalue, e.target.value, this.props.categories) } />
-                </label>
+                <div className={ styles.searchinput }>
+                    <input className={ styles.input }
+                        type='text' 
+                        placeholder='Search'
+                        value={ this.props.search.text }
+                        onChange={ (e) => 
+                            getSearchValue(e.target.value, this.props.search.filter, this.props.categories) } />
+                    <button 
+                        className={ styles.clear } 
+                        value='posts' 
+                        onClick={ (e) => getSearchValue('', e.target.value, this.props.categories) }>x</button>
+                </div>
+                <ul className={ styles.tabs }>
+                    <li><RadioButton
+                        filter='posts'
+                        children={ this.props.search } 
+                        categories={ this.props.categories } 
+                        onFilterChange={ getSearchValue } /></li>
 
-                <input 
-                    type='text' 
-                    onChange={ (e) => 
-                        getSearchValue(e.target.value, this.props.searchfilter, this.props.categories) } 
-                    placeholder='Search' />
+                    <li><RadioButton 
+                        filter='categories'
+                        children={ this.props.search } 
+                        categories={ this.props.categories}
+                        onFilterChange={ getSearchValue } /></li>
+                </ul>
             </div>
         );
     }

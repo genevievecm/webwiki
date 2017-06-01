@@ -32,11 +32,10 @@ class SinglePost extends Component {
     }
 
     render() {
+        
         let post = this.props.singlepost;
 
-        if(this.props.pending){ 
-            return <Loader />;
-        }
+        if(this.props.pending) return <Loader />;
 
         return (
             <div className={ styles.post }>

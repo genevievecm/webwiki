@@ -47,7 +47,7 @@ class Categories extends Component {
 
             <ul id={ styles.collection }>
                 { this.props.search.text.length >= 1 && this.props.search.results.length < 1 ? 
-                    <h1>No { this.props.search.filter } found.</h1> : categories }
+                    <h2>No { this.props.search.filter } found.</h2> : categories }
             </ul>
         );
     }
