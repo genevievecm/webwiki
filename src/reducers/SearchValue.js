@@ -13,6 +13,8 @@ export const SearchValue = (state = initialState, action) => {
 		case types.SEARCH_ACTIONS.REQUEST_SEARCH_VALUE_SUCCESS:
 
 			let results = [];
+
+			console.log(action.payload)
 			
 			// if searching posts
 			if (action.payload.filter === 'posts'){

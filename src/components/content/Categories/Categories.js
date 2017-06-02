@@ -37,7 +37,7 @@ class Categories extends Component {
         const categories = data.map(cat => {
             return (
                 <li key={ cat.slug }>
-                    <h2>{ cat.title } ({ cat.posts.length })</h2>
+                    <h2>{ cat.title } <span className={ styles.totalposts }>({ cat.posts.length })</span></h2>
                     <Posts children={ cat.posts } />
                 </li>
             );

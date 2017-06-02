@@ -1,3 +1,10 @@
 .post {
 	margin: 50px 10%;
 }
+
+a.goback:before {
+	content: '';
+	height: 24px;
+	width: 24px;
+	background-image: url('../../../images/chevron-left.svg');
+}

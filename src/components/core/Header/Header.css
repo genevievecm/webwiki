@@ -1,19 +1,14 @@
 #header {
-	flex-wrap: wrap;
-	margin-top: 20px;
-	border-bottom: 2px solid #98C83E;
+  	height: 100%;
+  	margin: 25px 0;
 }
 
 #header h1 {
 	margin: 0;
 	padding: 0 10%;
 	font-size: 1.5rem;
-	flex-grow: 2;
 }
 
-@media (min-width: 768px) { 
-	#header {
-		display: flex;
-		align-items: center;
-	}
+#header h1 a:hover {
+	border-bottom: none;
 }

@@ -77,6 +77,10 @@ module.exports = {
                     'css-loader?modules&importLoaders=1&localIdentName=[local]'
                 ]
             },
+            {
+                test: /\.svg/,
+                loader: 'svg-url-loader'
+            }
         ]
     },
 

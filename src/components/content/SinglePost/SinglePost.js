@@ -39,7 +39,7 @@ class SinglePost extends Component {
 
         return (
             <div className={ styles.post }>
-                <Link to='/webwiki'>Go Back</Link>
+                <Link to='/webwiki' className={ styles.goback }>Go Back</Link>
                 <h1>{ post.title ? post.title.rendered : null }</h1>
                 <div dangerouslySetInnerHTML={ createMarkup(post.content ? post.content.rendered : null) } />
             </div>

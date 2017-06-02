@@ -6,12 +6,22 @@ body {
 	color: #444;
 }
 
+p {
+	line-height: 1.35rem;
+}
+
 a {
 	text-decoration: none;
+	cursor: pointer;
+	margin-bottom: 5px;
 }
 
 a:visited {
 	color: #444;
+}
+
+a:hover {
+	border-bottom: 1px solid #98C83E;
 }
 
 ul {
